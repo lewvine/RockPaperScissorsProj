@@ -8,7 +8,5 @@ namespace RockPaperScissors
 {
     class Human : Player
     {
-        public new string type = "human";
-
     }
 }

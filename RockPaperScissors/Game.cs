@@ -16,12 +16,17 @@ namespace RockPaperScissors
         //Constructor
         public Game()
         {
+            //Initialization and messages
             this.rounds = 0;
             WelcomeMessage();
             ShowRules();
-            int answer = SelectNumberOfPlayers();
+
+            //Set options
+            string answer = SelectNumberOfPlayers();
             CreatePlayer(answer);
             rounds = NumberOfRounds();
+
+            //Play game
             Player winner = Round();
             ShowWinner(winner);
             ThanksForPlaying();
@@ -37,14 +42,14 @@ namespace RockPaperScissors
         public void ShowRules()
         {
             Console.WriteLine("The rules are pretty simple.  It's just like 'Rock, Paper, Scissors,' but with" +
-                "two additional gesture options: Spock, and lizard...... more rules.");
+                " two additional gesture options: Spock, and lizard...... more rules.");
             Console.ReadLine();
         }
-        public int SelectNumberOfPlayers()
+        public string SelectNumberOfPlayers()
         {
-            Console.WriteLine("Are there ONE or TWO players?  Please type '1' or '2'");
-            int answer = Convert.ToInt32(Console.ReadLine());
-            if (answer != 1 || answer != 2)
+            Console.WriteLine("Are there ONE or TWO players?  Please type 'one' or 'two'");
+            string answer = Console.ReadLine().ToUpper();
+            if (answer != "TWO" && answer != "ONE")
             {
                 Console.WriteLine("Invalid input.  Please try again.");
                 SelectNumberOfPlayers();
@@ -52,13 +57,13 @@ namespace RockPaperScissors
             return answer;
         }
 
-        public void CreatePlayer(int x)
+        public void CreatePlayer(string x)
         {
             playerOne = new Human();
 
             Console.WriteLine("PLAYER ONE: Please type in your player name and hit ENTER");
             playerOne.name = Console.ReadLine();
-            if (x == 2)
+            if (x == "TWO")
             {
                 playerTwo = new Human();
                 Console.WriteLine("PLAYER TWO: Please type in your player name and hit ENTER");
@@ -66,7 +71,7 @@ namespace RockPaperScissors
             }
             else
             {
-                playerTwo = new AI();
+                playerTwo = new Human();
             }
         }
 
@@ -91,12 +96,46 @@ namespace RockPaperScissors
             }
             return rounds;
         }
-
-        public int WhoWins()
+        public Player Round()
         {
-            string gestureOne = playerOne.ChooseGesture();
-            string gestureTwo = playerTwo.ChooseGesture();
+            while (playerOne.currentScore < rounds && playerTwo.currentScore < rounds)
+            {
+                string gestureOne = playerOne.ChooseGesture();
+                string gestureTwo = playerTwo.ChooseGesture();
+                Console.WriteLine($"{playerOne.name} picked {playerOne.currentGesture}.\n" +
+                                    $"{playerTwo.name} picked {playerTwo.currentGesture}.");
 
+                int winner = WhoWins(gestureOne, gestureTwo);
+
+                switch (winner)
+                {
+                    case 1:
+                        playerOne.currentScore++;
+                        Console.WriteLine($"{playerOne.name} wins!");
+                        break;
+                    case 2:
+                        playerTwo.currentScore++;
+                        Console.WriteLine($"{playerTwo.name} wins!");
+                        break;
+                    case 3:
+                        Console.WriteLine("Tie game.  Hit ENTER to continue.");
+
+                        break;
+                    case 0:
+                        Console.WriteLine("This is an error.  Hit ENTER to continue.");
+                        break;
+                }
+                Console.ReadLine();
+            }
+            if (playerOne.currentScore == rounds)
+            {
+                return playerOne;
+            }
+            return playerTwo;
+        }
+
+        public int WhoWins(string gestureOne, string gestureTwo)
+        {
             if (gestureOne == "rock")
             {
                 if (gestureTwo == "paper" || gestureTwo == "spock")
@@ -181,40 +220,6 @@ namespace RockPaperScissors
                 }
             }
             return 3;
-        }
-        public Player Round()
-        {
-            while (playerOne.currentScore < rounds && playerTwo.currentScore < rounds)
-            {
-                Console.WriteLine($"{playerOne.name} picked {playerOne.currentGesture}.\n" +
-                                    $"{playerTwo.name} picked {playerTwo.currentGesture}.");
-                int winner = WhoWins();
-
-                switch (winner)
-                {
-                    case 1:
-                        playerOne.currentScore++;
-                        Console.WriteLine($"{playerOne.name} wins!");
-                        break;
-                    case 2:
-                        playerTwo.currentScore++;
-                        Console.WriteLine($"{playerTwo.name} wins!");
-                        break;
-                    case 3:
-                        Console.WriteLine("Tie game.  Hit ENTER to continue.");
-
-                        break;
-                    case 0:
-                        Console.WriteLine("This is an error.  Hit ENTER to continue.");
-                        break;
-                }
-                Console.ReadLine();
-            }
-            if (playerOne.currentScore == rounds)
-            {
-                return playerOne;
-            }
-            return playerTwo;
         }
 
         public void ShowWinner(Player winner)

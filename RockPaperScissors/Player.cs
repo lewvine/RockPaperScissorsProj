@@ -11,7 +11,6 @@ namespace RockPaperScissors
 
         //Member variables
         public string name;
-        public string type;
         public int currentScore;
         public string currentGesture;
 
