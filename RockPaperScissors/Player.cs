@@ -28,7 +28,7 @@ namespace RockPaperScissors
             this.name = Console.ReadLine();
         }
 
-        public abstract string ChooseGesture();
+        public abstract string ChooseGesture(List<string> gestures);
       
 
     }

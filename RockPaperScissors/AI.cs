@@ -13,35 +13,21 @@ namespace RockPaperScissors
 
 
         //Member constructor
-        public AI()
-        {
 
-        }
 
         //Member methods
-        public override string ChooseGesture()
+        public override string ChooseGesture(List<string> gestures)
         {
             Random rand = new Random();
             int x = rand.Next(1, 6);
 
-            switch (x)
+            for (int i = 0; i <= gestures.Count; i++)
             {
-                case 1:
-                    currentGesture = "rock";
-                    break;
-                case 2:
-                    currentGesture = "paper";
-                    break;
-                case 3:
-                    currentGesture = "scissors";
-                    break;
-                case 4:
-                    currentGesture = "spock";
-                    break;
-                case 5:
-                    currentGesture = "lizard";
-                    break;
-            }
+                if (x == i)
+                {
+                    currentGesture = gestures[i];
+                }
+            };
             return currentGesture;
         }
     }

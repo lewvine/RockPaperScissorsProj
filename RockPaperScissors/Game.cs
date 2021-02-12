@@ -10,6 +10,7 @@ namespace RockPaperScissors
     {
         //Member variables
         public int rounds;
+        public List<string> gestures;
         public Player playerOne;
         public Player playerTwo;
         public bool keepPlaying;
@@ -19,7 +20,17 @@ namespace RockPaperScissors
         {
             rounds = 0;
             keepPlaying = true;
-         
+            playerOne = new Human();
+            gestures = new List<string>();
+            
+            gestures.Add("rock");
+            gestures.Add("paper");
+            gestures.Add("scissors");
+            gestures.Add("spock");
+            gestures.Add("lizard");
+
+
+
         }
 
 
@@ -29,7 +40,6 @@ namespace RockPaperScissors
             //keepPlaying is defaulted to true in new Game and then assessed in the ThanksForPlaying().
             while (keepPlaying == true)
             {
-
                 rounds = 0;
                 WelcomeMessage();
 
@@ -111,9 +121,9 @@ namespace RockPaperScissors
         {
             while (playerOne.currentScore < rounds && playerTwo.currentScore < rounds)
             {
-                string gestureOne = playerOne.ChooseGesture();
+                string gestureOne = playerOne.ChooseGesture(gestures);
                 Console.Clear();
-                string gestureTwo = playerTwo.ChooseGesture();
+                string gestureTwo = playerTwo.ChooseGesture(gestures);
                 Console.Clear();
                 Console.WriteLine($"{playerOne.name} picked {playerOne.currentGesture}.\n" +
                                     $"{playerTwo.name} picked {playerTwo.currentGesture}.");
