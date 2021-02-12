@@ -12,25 +12,30 @@ namespace RockPaperScissors
         public int rounds;
         public Player playerOne;
         public Player playerTwo;
+        public bool keepPlaying = true;
 
         //Constructor
         public Game()
         {
-            //Initialization and messages
-            this.rounds = 0;
-            WelcomeMessage();
+            //keepPlaying is defaulted to true in new Game and then assessed in the ThanksForPlaying().
+            while (keepPlaying == true)
+            {
+                rounds = 0;
 
-            //Set options
-            string answer = SelectNumberOfPlayers();
-            CreatePlayer(answer);
-            rounds = NumberOfRounds();
+                WelcomeMessage();
 
-            //Play game
-            Player winner = Round();
-            ShowWinner(winner);
-            ThanksForPlaying();
+                //Set options
+                string answer = SelectNumberOfPlayers();
+                CreatePlayer(answer);
+                rounds = NumberOfRounds();
 
+                //Play game
+                Player winner = Round();
+                ShowWinner(winner);
+                ThanksForPlaying();
+            }
         }
+
         //Member methods
         public void WelcomeMessage()
         {
@@ -39,12 +44,14 @@ namespace RockPaperScissors
                 "but with two additional gesture options: Spock, and lizard...... more rules.\n" +
                 "Hit ENTER to continue.");
             Console.ReadLine();
+            Console.Clear();
         }
 
         public string SelectNumberOfPlayers()
         {
             Console.WriteLine("Are there ONE or TWO players?  Please type 'one' or 'two'");
             string answer = Console.ReadLine().ToUpper();
+            Console.Clear();
             if (answer != "TWO" && answer != "ONE")
             {
                 Console.WriteLine("Invalid input.  Please try again.");
@@ -57,10 +64,12 @@ namespace RockPaperScissors
         {
             playerOne = new Human();
             playerOne.SetName();
+            Console.Clear();
             if (x == "TWO")
             {
                 playerTwo = new Human();
                 playerTwo.SetName();
+                Console.Clear();
             }
             else if (x == "ONE")
             {
@@ -74,6 +83,7 @@ namespace RockPaperScissors
                 "Type '3', '5' or '7'");
 
             int rounds = Convert.ToInt32(Console.ReadLine());
+            Console.Clear();
             switch (rounds)
             {
                 case 3:
@@ -83,6 +93,7 @@ namespace RockPaperScissors
                 case 7:
                     break;
                 default:
+                    Console.Clear();
                     Console.WriteLine("That wasn't a valid entry.  Please try again.");
                     NumberOfRounds();
                     break;
@@ -94,7 +105,9 @@ namespace RockPaperScissors
             while (playerOne.currentScore < rounds && playerTwo.currentScore < rounds)
             {
                 string gestureOne = playerOne.ChooseGesture();
+                Console.Clear();
                 string gestureTwo = playerTwo.ChooseGesture();
+                Console.Clear();
                 Console.WriteLine($"{playerOne.name} picked {playerOne.currentGesture}.\n" +
                                     $"{playerTwo.name} picked {playerTwo.currentGesture}.");
 
@@ -118,7 +131,10 @@ namespace RockPaperScissors
                         Console.WriteLine("This is an error.  Hit ENTER to continue.");
                         break;
                 }
+                Console.WriteLine(  $"{playerOne.name} has {playerOne.currentScore}.\n" +
+                                    $"{playerTwo.name} has {playerTwo.currentScore}.");
                 Console.ReadLine();
+                Console.Clear();
             }
             if (playerOne.currentScore == rounds)
             {
@@ -141,7 +157,7 @@ namespace RockPaperScissors
                 }
                 else
                 {
-                    return 0;
+                    return 3;
                 }
             }
 
@@ -158,7 +174,7 @@ namespace RockPaperScissors
                 }
                 else
                 {
-                    return 0;
+                    return 3;
                 }
             }
 
@@ -175,7 +191,7 @@ namespace RockPaperScissors
                 }
                 else
                 {
-                    return 0;
+                    return 3;
                 }
             }
 
@@ -192,7 +208,7 @@ namespace RockPaperScissors
                 }
                 else
                 {
-                    return 0;
+                    return 3;
                 }
             }
 
@@ -209,10 +225,10 @@ namespace RockPaperScissors
                 }
                 else
                 {
-                    return 0;
+                    return 3;
                 }
             }
-            return 3;
+            return 0;
         }
 
         public void ShowWinner(Player winner)
@@ -224,10 +240,14 @@ namespace RockPaperScissors
         {
             Console.WriteLine("Thanks for playing a game with us.  Would you like to play another game?" +
                 "  Type 'YES' to play another game");
-            string answer = Console.ReadLine();
+            string answer = Console.ReadLine().ToUpper();
             if (answer == "YES")
             {
-                WelcomeMessage();
+                keepPlaying = true;
+            }
+            else
+            {
+                keepPlaying = false;
             }
         }        
     }
