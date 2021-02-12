@@ -131,8 +131,10 @@ namespace RockPaperScissors
                         Console.WriteLine("This is an error.  Hit ENTER to continue.");
                         break;
                 }
-                Console.WriteLine(  $"{playerOne.name} has {playerOne.currentScore}.\n" +
-                                    $"{playerTwo.name} has {playerTwo.currentScore}.");
+                Console.WriteLine($"\n\n{playerOne.name} has {playerOne.currentScore}.\n" +
+                                    $"{playerTwo.name} has {playerTwo.currentScore}.\n" +
+                                    $"Press ENTER to continue");
+
                 Console.ReadLine();
                 Console.Clear();
             }
@@ -241,6 +243,7 @@ namespace RockPaperScissors
             Console.WriteLine("Thanks for playing a game with us.  Would you like to play another game?" +
                 "  Type 'YES' to play another game");
             string answer = Console.ReadLine().ToUpper();
+            Console.Clear();
             if (answer == "YES")
             {
                 keepPlaying = true;
