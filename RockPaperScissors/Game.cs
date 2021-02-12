@@ -12,16 +12,25 @@ namespace RockPaperScissors
         public int rounds;
         public Player playerOne;
         public Player playerTwo;
-        public bool keepPlaying = true;
+        public bool keepPlaying;
 
         //Constructor
         public Game()
         {
+            rounds = 0;
+            keepPlaying = true;
+         
+        }
+
+
+        //Member methods
+        public void RunGame()
+        {
             //keepPlaying is defaulted to true in new Game and then assessed in the ThanksForPlaying().
             while (keepPlaying == true)
             {
-                rounds = 0;
 
+                rounds = 0;
                 WelcomeMessage();
 
                 //Set options
@@ -35,8 +44,6 @@ namespace RockPaperScissors
                 ThanksForPlaying();
             }
         }
-
-        //Member methods
         public void WelcomeMessage()
         {
             Console.WriteLine("\n\nWelcome to RPSSL!\n\n" +
