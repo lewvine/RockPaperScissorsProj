@@ -19,9 +19,9 @@ namespace RockPaperScissors
         public override string ChooseGesture(List<string> gestures)
         {
             Random rand = new Random();
-            int x = rand.Next(1, 6);
+            int x = rand.Next(0, 5);
 
-            for (int i = 0; i <= gestures.Count; i++)
+            for (int i = 0; i < gestures.Count; i++)
             {
                 if (x == i)
                 {

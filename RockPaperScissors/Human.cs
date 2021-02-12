@@ -11,15 +11,19 @@ namespace RockPaperScissors
     {
         public override string ChooseGesture(List<string> gestures)
         {
-            Console.WriteLine($"{name} Please choose your gesture.  \n\n'1'  -  Rock\n'2'  -  Paper\n" +
-                "'3'  -  Scissors\n'4'  -  Spock\n'5'  -  Lizard ");
-            int x = Convert.ToInt32(Console.ReadLine()) + 1;
+            Console.WriteLine($"{name} Please choose your gesture.");
 
-            for(int i = 0; i <= gestures.Count; i++)
+            for (var i = 1; i <= gestures.Count; i++)
+            {
+                Console.WriteLine($"{i}  -  {gestures[i-1]}");
+            }
+            int x = Convert.ToInt32(Console.ReadLine());
+
+            for(int i = 1; i <= gestures.Count; i++)
             {
                 if(x == i)
                 {
-                    currentGesture = gestures[i];
+                    currentGesture = gestures[i-1];
                 }
             };
             return currentGesture;
