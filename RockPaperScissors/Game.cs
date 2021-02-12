@@ -9,9 +9,9 @@ namespace RockPaperScissors
     class Game
     {
         //Member variables
-        int rounds;
-        Human playerOne;
-        Human playerTwo;
+        public int rounds;
+        public Player playerOne;
+        public Player playerTwo;
 
         //Constructor
         public Game()
@@ -19,7 +19,6 @@ namespace RockPaperScissors
             //Initialization and messages
             this.rounds = 0;
             WelcomeMessage();
-            ShowRules();
 
             //Set options
             string answer = SelectNumberOfPlayers();
@@ -35,16 +34,13 @@ namespace RockPaperScissors
         //Member methods
         public void WelcomeMessage()
         {
-            Console.WriteLine("Welcome to RPSSL!  Hit ENTER to continue");
+            Console.WriteLine("\n\nWelcome to RPSSL!\n\n" +
+                "The rules are pretty simple.  It's just like 'Rock, Paper, Scissors,'\n" +
+                "but with two additional gesture options: Spock, and lizard...... more rules.\n" +
+                "Hit ENTER to continue.");
             Console.ReadLine();
         }
 
-        public void ShowRules()
-        {
-            Console.WriteLine("The rules are pretty simple.  It's just like 'Rock, Paper, Scissors,' but with" +
-                " two additional gesture options: Spock, and lizard...... more rules.");
-            Console.ReadLine();
-        }
         public string SelectNumberOfPlayers()
         {
             Console.WriteLine("Are there ONE or TWO players?  Please type 'one' or 'two'");
@@ -60,18 +56,15 @@ namespace RockPaperScissors
         public void CreatePlayer(string x)
         {
             playerOne = new Human();
-
-            Console.WriteLine("PLAYER ONE: Please type in your player name and hit ENTER");
-            playerOne.name = Console.ReadLine();
+            playerOne.SetName();
             if (x == "TWO")
             {
                 playerTwo = new Human();
-                Console.WriteLine("PLAYER TWO: Please type in your player name and hit ENTER");
-                playerTwo.name = Console.ReadLine();
+                playerTwo.SetName();
             }
-            else
+            else if (x == "ONE")
             {
-                playerTwo = new Human();
+                playerTwo = new AI();
             }
         }
 
