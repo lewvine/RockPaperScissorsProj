@@ -9,13 +9,13 @@ namespace RockPaperScissors
 
     public class Human : Player
     {
-        public override string ChooseGesture(List<string> gestures)
+        public override Gesture ChooseGesture()
         {
             Console.WriteLine($"{name} Please choose your gesture.");
 
-            for (var i = 1; i <= gestures.Count; i++)
+            for (var i = 0; i < gestures.Count; i++)
             {
-                Console.WriteLine($"{i}  -  {gestures[i-1]}");
+                Console.WriteLine($"{i+1}  -  {gestures[i].name}");
             }
             int x = Convert.ToInt32(Console.ReadLine());
 

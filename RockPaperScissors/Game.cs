@@ -10,11 +10,12 @@ namespace RockPaperScissors
     {
         //Member variables
         public int rounds;
-        public List<string> gestures;
+        //public List<string> gestures;
         public Player playerOne;
         public Player playerTwo;
         public bool keepPlaying;
         public string playerNumber;
+
 
         //Constructor
         public Game()
@@ -22,17 +23,7 @@ namespace RockPaperScissors
             rounds = 0;
             keepPlaying = true;
             playerOne = new Human();
-            gestures = new List<string>();
             playerNumber = "";
-            
-            gestures.Add("rock");
-            gestures.Add("paper");
-            gestures.Add("scissors");
-            gestures.Add("spock");
-            gestures.Add("lizard");
-
-
-
         }
 
 
@@ -100,7 +91,6 @@ namespace RockPaperScissors
             {
                 playerTwo = new AI();
             }
-
         }
 
         public int NumberOfRounds()
@@ -130,12 +120,12 @@ namespace RockPaperScissors
         {
             while (playerOne.currentScore < rounds && playerTwo.currentScore < rounds)
             {
-                string gestureOne = playerOne.ChooseGesture(gestures);
+                Gesture gestureOne = playerOne.ChooseGesture();
                 Console.Clear();
-                string gestureTwo = playerTwo.ChooseGesture(gestures);
+                Gesture gestureTwo = playerTwo.ChooseGesture();
                 Console.Clear();
-                Console.WriteLine($"{playerOne.name} picked {playerOne.currentGesture}.\n" +
-                                    $"{playerTwo.name} picked {playerTwo.currentGesture}.");
+                Console.WriteLine($"{playerOne.name} picked {playerOne.currentGesture.name}.\n" +
+                                    $"{playerTwo.name} picked {playerTwo.currentGesture.name}.");
 
                 int winner = WhoWins(gestureOne, gestureTwo);
 
@@ -171,92 +161,22 @@ namespace RockPaperScissors
             return playerTwo;
         }
 
-        public int WhoWins(string gestureOne, string gestureTwo)
+        public int WhoWins(Gesture gestureOne, Gesture gestureTwo)
         {
-            if (gestureOne == "rock")
+            if (gestureTwo.name == gestureOne.name)
             {
-                if (gestureTwo == "paper" || gestureTwo == "spock")
-                {
-                    return 2;
-                }
-                else if (gestureTwo == "lizard" || gestureTwo == "scissors")
-                {
-                    return 1;
-                }
-                else
-                {
-                    return 3;
-                }
+                //3 signifies tie.
+                return 3;
             }
-
-            //playerOne is Scissors
-            if (gestureOne == "scissors")
+            else if (gestureOne.winsAgainstList.Contains(gestureTwo.name) == true)
             {
-                if (gestureTwo == "rock" || gestureTwo == "spock")
-                {
-                    return 2;
-                }
-                else if (gestureTwo == "paper" || gestureTwo == "lizard")
-                {
-                    return 1;
-                }
-                else
-                {
-                    return 3;
-                }
+                //playerOne wins
+                return 1;
             }
-
-            //playerOne is Spock
-            if (gestureOne == "spock")
+            else
             {
-                if (gestureTwo == "lizard" || gestureTwo == "paper")
-                {
-                    return 2;
-                }
-                else if (gestureTwo == "scissors" || gestureTwo == "rock")
-                {
-                    return 1;
-                }
-                else
-                {
-                    return 3;
-                }
+                return 2;
             }
-
-            //playerOne is Paper
-            if (gestureOne == "paper")
-            {
-                if (gestureTwo == "scissors" || gestureTwo == "lizard")
-                {
-                    return 2;
-                }
-                else if (gestureTwo == "rock" || gestureTwo == "spock")
-                {
-                    return 1;
-                }
-                else
-                {
-                    return 3;
-                }
-            }
-
-            //playerOne is lizard
-            if (gestureOne == "lizard")
-            {
-                if (gestureTwo == "rock" || gestureTwo == "scissors")
-                {
-                    return 2;
-                }
-                else if (gestureTwo == "spock" || gestureTwo == "paper")
-                {
-                    return 1;
-                }
-                else
-                {
-                    return 3;
-                }
-            }
-            return 0;
         }
 
         public void ShowWinner(Player winner)

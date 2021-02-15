@@ -16,7 +16,7 @@ namespace RockPaperScissors
 
 
         //Member methods
-        public override string ChooseGesture(List<string> gestures)
+        public override Gesture ChooseGesture()
         {
             Random rand = new Random();
             int x = rand.Next(0, 5);

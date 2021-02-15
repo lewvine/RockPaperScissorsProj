@@ -12,14 +12,36 @@ namespace RockPaperScissors
         //Member variables
         public string name;
         public int currentScore;
-        public string currentGesture;
+        public Gesture currentGesture;
+        public List<Gesture> gestures;
 
         //Member methods
-        public Player(string name = "Ding Dong", int currentscore = 0, string currentGesture = "rock")
+        public Player(string name = "Ding Dong", int currentscore = 0)
         {
             this.name = name;
             this.currentScore = currentscore;
-            this.currentGesture = currentGesture;
+            this.currentGesture = null;
+            this.gestures = new List<Gesture>();
+
+            List<string> rockWins = new List<string>() { "lizard", "scissors" };
+            Gesture rock = new Gesture("rock", rockWins);
+            gestures.Add(rock);
+
+            List<string> paperWins = new List<string>() { "rock", "spock" };
+            Gesture paper = new Gesture("paper", paperWins);
+            gestures.Add(paper);
+
+            List<string> scissorsWins = new List<string>() { "paper", "lizard" };
+            Gesture scissors = new Gesture("scissors", scissorsWins);
+            gestures.Add(scissors);
+
+            List<string> spockWins = new List<string>() { "scissors", "rock" };
+            Gesture spock = new Gesture("spock", spockWins);
+            gestures.Add(spock);
+
+            List<string> lizardWins = new List<string>() { "spock", "paper" };
+            Gesture lizard = new Gesture("lizard", lizardWins);
+            gestures.Add(lizard);
         }
 
         public void SetName()
@@ -33,7 +55,7 @@ namespace RockPaperScissors
             }
         }
 
-        public abstract string ChooseGesture(List<string> gestures);
+        public abstract Gesture ChooseGesture();
       
 
     }
