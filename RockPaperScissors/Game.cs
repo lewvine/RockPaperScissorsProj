@@ -14,6 +14,7 @@ namespace RockPaperScissors
         public Player playerOne;
         public Player playerTwo;
         public bool keepPlaying;
+        public string playerNumber;
 
         //Constructor
         public Game()
@@ -22,6 +23,7 @@ namespace RockPaperScissors
             keepPlaying = true;
             playerOne = new Human();
             gestures = new List<string>();
+            playerNumber = "";
             
             gestures.Add("rock");
             gestures.Add("paper");
@@ -44,8 +46,8 @@ namespace RockPaperScissors
                 WelcomeMessage();
 
                 //Set options
-                string answer = SelectNumberOfPlayers();
-                CreatePlayer(answer);
+                playerNumber = SelectNumberOfPlayers();
+                CreatePlayer(playerNumber);
                 rounds = NumberOfRounds();
 
                 //Play game
@@ -67,31 +69,38 @@ namespace RockPaperScissors
         public string SelectNumberOfPlayers()
         {
             Console.WriteLine("Are there ONE or TWO players?  Please type 'one' or 'two'");
-            string answer = Console.ReadLine().ToUpper();
+            playerNumber = Console.ReadLine().ToUpper();
             Console.Clear();
-            if (answer != "TWO" && answer != "ONE")
+
+            if (playerNumber == "TWO" || playerNumber == "ONE")
+            {
+                return playerNumber;
+            }
+            else
             {
                 Console.WriteLine("Invalid input.  Please try again.");
                 SelectNumberOfPlayers();
+                string error = "This is an error";
+                return error;
             }
-            return answer;
         }
 
-        public void CreatePlayer(string x)
+        public void CreatePlayer(string playerNumber)
         {
             playerOne = new Human();
             playerOne.SetName();
             Console.Clear();
-            if (x == "TWO")
+            if (playerNumber == "TWO")
             {
                 playerTwo = new Human();
                 playerTwo.SetName();
                 Console.Clear();
             }
-            else if (x == "ONE")
+            else if (playerNumber == "ONE")
             {
                 playerTwo = new AI();
             }
+
         }
 
         public int NumberOfRounds()

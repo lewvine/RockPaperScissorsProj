@@ -26,6 +26,11 @@ namespace RockPaperScissors
         {
             Console.WriteLine("Input your name and press ENTER to continue.");
             this.name = Console.ReadLine();
+            if (this.name.Length < 3)
+            {
+                Console.WriteLine("You're name is too short.  Please try again.");
+                SetName();
+            }
         }
 
         public abstract string ChooseGesture(List<string> gestures);
